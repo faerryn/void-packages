@@ -16,7 +16,7 @@ makedepends="MesaLib-devel ffmpeg-devel harfbuzz-devel libXv-devel
  libguess-devel libuuid-devel libva-glx-devel rubberband-devel uchardet-devel
  libarchive-devel $(vopt_if alsa alsa-lib-devel) $(vopt_if caca libcaca-devel)
  $(vopt_if jack jack-devel) $(vopt_if lcms lcms2-devel)
- $(vopt_if lua lua52-devel) $(vopt_if openal libopenal-devel)
+ $(vopt_if lua LuaJIT-devel) $(vopt_if openal libopenal-devel)
  $(vopt_if pulseaudio pulseaudio-devel) $(vopt_if sdl2 SDL2-devel)
  $(vopt_if vapoursynth vapoursynth-devel) $(vopt_if vdpau libvdpau-devel)
  $(vopt_if vulkan "Vulkan-Headers vulkan-loader shaderc libplacebo-devel")
