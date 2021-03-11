@@ -1,0 +1,32 @@
+# Template file for 'lua-language-server'
+pkgname=lua-language-server
+version=1.18.1
+revision=1
+hostmakedepends="git ninja"
+short_desc="Lua Language Server coded by Lua"
+maintainer="Jiang Meng Liao (Faerryn) <alexandre.liao@gmail.com>"
+license="MIT"
+homepage="https://github.com/sumneko/lua-language-server"
+
+do_fetch() {
+	git clone --depth 1 --recursive https://github.com/sumneko/lua-language-server.git "${wrksrc}"
+}
+
+do_build() {
+	ninja -C 3rd/luamake -f ninja/linux.ninja
+	./3rd/luamake/luamake rebuild
+}
+
+do_install() {
+	vinstall bin/Linux/lua-language-server 755 usr/lib/${pkgname}
+	vinstall bin/Linux/bee.so 755 usr/lib/${pkgname}
+	vinstall bin/Linux/lpeglabel.so 755 usr/lib/${pkgname}
+
+	vcopy *.lua usr/lib/${pkgname}
+	vcopy locale usr/lib/${pkgname}
+	vcopy script usr/lib/${pkgname}
+	vcopy meta usr/lib/${pkgname}
+
+	vbin ${FILESDIR}/lua-language-server.sh lua-language-server
+	vlicense LICENSE
+}
