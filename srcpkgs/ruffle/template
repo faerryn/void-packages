@@ -1,0 +1,20 @@
+# Template file for 'ruffle'
+pkgname=ruffle
+version=0.1.0
+revision=1
+build_style=cargo
+make_install_args="--path=desktop/"
+hostmakedepends="git pkg-config python3"
+makedepends="alsa-lib-devel libxcb-devel openssl-devel"
+short_desc="A Flash Player emulator written in Rust"
+maintainer="Jiang Meng Liao (Faerryn) <alexandre.liao@gmail.com>"
+license="Apache-2.0, MIT"
+homepage="https://ruffle.rs/"
+
+do_fetch() {
+	git clone --depth 1 https://github.com/ruffle-rs/ruffle.git "${wrksrc}"
+}
+
+post_install() {
+	mv ${DESTDIR}/usr/bin/ruffle_desktop ${DESTDIR}/usr/bin/ruffle
+}
