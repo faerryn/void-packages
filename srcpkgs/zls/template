@@ -1,0 +1,38 @@
+# Template file for 'zls'
+pkgname=zls
+version=0.1.0
+revision=1
+hostmakedepends="git zig"
+depends="zig"
+short_desc="Zig LSP implementation + Zig Language Server"
+maintainer="Jiang Meng Liao (Faerryn) <alexandre.liao@gmail.com>"
+license="MIT"
+homepage="https://github.com/zigtools/zls"
+
+libc=
+
+case "${XBPS_TARGET_LIBC}" in
+	glibc)
+		libc=gnu
+		;;
+	musl)
+		libc=musl
+		;;
+esac
+
+do_fetch() {
+	git clone --depth 1 --recursive https://github.com/zigtools/zls.git "${wrksrc}"
+}
+
+do_build() {
+	zig build -Drelease-fast -Dtarget="${XBPS_TARGET_MACHINE}-linux-${libc}"
+}
+
+do_install() {
+	vinstall zig-cache/bin/zls 755 usr/lib/${pkgname}
+
+	vcopy zig-cache/bin/build_runner.zig usr/lib/${pkgname}
+
+	vbin "${FILESDIR}"/zls.sh zls
+	vlicense LICENSE.md
+}
